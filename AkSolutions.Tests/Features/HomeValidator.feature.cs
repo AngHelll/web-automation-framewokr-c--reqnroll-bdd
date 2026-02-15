@@ -111,6 +111,7 @@ namespace AkSolutions.Tests.Features
         
         [global::NUnit.Framework.TestAttribute()]
         [global::NUnit.Framework.DescriptionAttribute("Happy Path - Main Navigation")]
+        [global::NUnit.Framework.IgnoreAttribute("Ignored scenario")]
         [global::NUnit.Framework.CategoryAttribute("Correct")]
         [global::NUnit.Framework.CategoryAttribute("MVP")]
         [global::NUnit.Framework.CategoryAttribute("Regression")]
@@ -119,7 +120,8 @@ namespace AkSolutions.Tests.Features
             string[] tagsOfScenario = new string[] {
                     "Correct",
                     "MVP",
-                    "Regression"};
+                    "Regression",
+                    "Ignore"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             string pickleIndex = "0";
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Happy Path - Main Navigation", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
