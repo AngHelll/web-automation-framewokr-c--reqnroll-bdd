@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="AkSolutions.Tests/AkSolutions.Tests.csproj" />
+  <Project Path="Company.Automation.Core/Company.Automation.Core.csproj" />
+  <Project Path="Company.Automation.Infrastructure/Company.Automation.Infrastructure.csproj" />
+  <Project Path="Company.Automation.Reporting/Company.Automation.Reporting.csproj" />
+  <Project Path="Company.Automation.Web/Company.Automation.Web.csproj" />
+</Solution>

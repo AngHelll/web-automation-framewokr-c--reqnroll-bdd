@@ -1,0 +1,61 @@
+name: .NET Core Desktop
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    runs-on: ubuntu-latest  # Playwright requires Linux or Mac for easier setup in CI
+
+    env:
+      Solution_Name: AkSolutions.slnx
+      Test_Project_Path: AkSolutions.Tests/AkSolutions.Tests.csproj
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    # Install the .NET Core workload
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    # Restore dependencies
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    # Build the solution
+    - name: Build
+      run: dotnet build --configuration ${{ matrix.configuration }} --no-restore
+
+    # Install Playwright Browsers (Required for UI tests)
+    - name: Install Playwright Browsers
+      run: |
+        dotnet build ${{ env.Test_Project_Path }} --configuration ${{ matrix.configuration }}
+        pwsh ${{ env.Test_Project_Path }}/bin/${{ matrix.configuration }}/net8.0/playwright.ps1 install
+
+    # Execute all tests
+    - name: Test
+      run: dotnet test --configuration ${{ matrix.configuration }} --no-build --verbosity normal --collect:"XPlat Code Coverage"
+
+    # Upload Test Results (Optional)
+    - name: Upload Test Results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results-${{ matrix.configuration }}
+        path: |
+          **/TestResults/**/*
+          **/playwright-report/**/*
