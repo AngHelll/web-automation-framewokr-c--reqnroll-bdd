@@ -18,12 +18,11 @@ public class NavBar
 
     public async Task ClickProjectsAsync()
     {
-        await _page.ClickAsync("text=Proyectos"); // Adjust selector as needed based on actual site
+        await _page.Locator("text=/Proyectos|Projects/i").ClickAsync();
     }
 
     public async Task ClickNotesAsync()
     {
-        // The UI label is "Ideas" but conceptually it's the Notes/Blog section
-        await _page.ClickAsync("text=Ideas"); 
+        await _page.Locator("text=/Ideas|Notes/i").ClickAsync();
     }
 }
