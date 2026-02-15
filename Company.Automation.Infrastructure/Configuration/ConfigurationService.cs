@@ -20,7 +20,7 @@ public class ConfigurationService : IConfigurationService
         _config = builder.Build();
     }
 
-    public string GetString(string key)
+    public string? GetString(string key)
     {
         return _config[key];
     }
@@ -37,7 +37,7 @@ public class ConfigurationService : IConfigurationService
         return bool.TryParse(val, out var result) ? result : defaultValue;
     }
 
-    public T Get<T>(string key)
+    public T? Get<T>(string key)
     {
         return _config.GetSection(key).Get<T>();
     }

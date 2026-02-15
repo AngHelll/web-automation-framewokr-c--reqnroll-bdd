@@ -71,7 +71,7 @@ public class SerilogService : ILoggerService
         if (properties == null || properties.Count == 0)
             return null;
 
-        IDisposable push = null;
+        IDisposable? push = null;
         foreach (var prop in properties)
         {
              push = LogContext.PushProperty(prop.Key, prop.Value);

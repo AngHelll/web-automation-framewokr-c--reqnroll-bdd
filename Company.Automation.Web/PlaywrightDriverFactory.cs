@@ -47,7 +47,7 @@ public class PlaywrightDriverFactory : IDriverFactory
             IgnoreHTTPSErrors = true,
             Locale = "es-ES",
             TimezoneId = "Europe/Madrid",
-            Geolocation = new Geolocation { Latitude = 40.4168, Longitude = -3.7038 }, // Madrid
+            Geolocation = new Geolocation { Latitude = 40.4168f, Longitude = -3.7038f }, // Madrid
             Permissions = new[] { "geolocation" }
         });
     }
