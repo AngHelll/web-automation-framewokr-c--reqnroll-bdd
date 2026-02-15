@@ -33,7 +33,13 @@ public class PlaywrightDriverFactory : IDriverFactory
         var headless = _configuration.GetBool("Browser:Headless", true);
         var args = _configuration.Get<string[]>("Browser:Args") ?? new string[] { };
 
-        var argsList = new List<string>(args) { "--lang=es-ES" };
+        var argsList = new List<string>(args) 
+        { 
+            "--lang=es-ES",
+            "--disable-blink-features=AutomationControlled", // Hides navigator.webdriver
+            "--no-sandbox",
+            "--disable-setuid-sandbox"
+        };
 
         var browser = await browserType.LaunchAsync(new BrowserTypeLaunchOptions
         {
@@ -48,7 +54,8 @@ public class PlaywrightDriverFactory : IDriverFactory
             Locale = "es-ES",
             TimezoneId = "Europe/Madrid",
             Geolocation = new Geolocation { Latitude = 40.4168f, Longitude = -3.7038f }, // Madrid
-            Permissions = new[] { "geolocation" }
+            Permissions = new[] { "geolocation" },
+            UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
         });
     }
 

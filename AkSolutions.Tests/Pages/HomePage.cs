@@ -21,8 +21,16 @@ public class HomePage : BasePage
     {
         try
         {
-             // Check for specific text to ensure we are on the right page, not a 404
-             await Page.WaitForSelectorAsync("h1:has-text('Angel')", new PageWaitForSelectorOptions { State = WaitForSelectorState.Visible });
+             // Check if we are stuck on Cloudflare WAF
+             var title = await Page.TitleAsync();
+             if (title.Contains("Un momento") || title.Contains("Just a moment"))
+             {
+                 _logger.Warning("WAF Detected. Waiting additional time for clearance...");
+                 await Page.WaitForTimeoutAsync(5000); // Give it a moment to clear
+             }
+
+             // Check for specific text to ensure we are on the right page
+             await Page.WaitForSelectorAsync("h1:has-text('Angel')", new PageWaitForSelectorOptions { State = WaitForSelectorState.Visible, Timeout = 30000 });
              return true;
         }
         catch
