@@ -25,7 +25,7 @@ public class HomePage : BasePage
              var title = await Page.TitleAsync();
              if (title.Contains("Un momento") || title.Contains("Just a moment"))
              {
-                 _logger.Warning("WAF Detected. Waiting additional time for clearance...");
+                 Logger.Warning("WAF Detected. Waiting additional time for clearance...");
                  await Page.WaitForTimeoutAsync(5000); // Give it a moment to clear
              }
 
