@@ -18,7 +18,7 @@ jobs:
 
     env:
       Solution_Name: AkSolutions.slnx
-      Test_Project_Path: AkSolutions.Tests/AkSolutions.Tests.csproj
+      Test_Project_Directory: AkSolutions.Tests
 
     steps:
     - name: Checkout
@@ -43,8 +43,8 @@ jobs:
     # Install Playwright Browsers (Required for UI tests)
     - name: Install Playwright Browsers
       run: |
-        dotnet build ${{ env.Test_Project_Path }} --configuration ${{ matrix.configuration }}
-        pwsh ${{ env.Test_Project_Path }}/bin/${{ matrix.configuration }}/net8.0/playwright.ps1 install
+        dotnet build ${{ env.Test_Project_Directory }} --configuration ${{ matrix.configuration }}
+        pwsh ${{ env.Test_Project_Directory }}/bin/${{ matrix.configuration }}/net8.0/playwright.ps1 install
 
     # Execute all tests
     - name: Test
