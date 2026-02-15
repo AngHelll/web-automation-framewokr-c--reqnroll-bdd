@@ -55,7 +55,8 @@ public class PlaywrightDriverFactory : IDriverFactory
             TimezoneId = "Europe/Madrid",
             Geolocation = new Geolocation { Latitude = 40.4168f, Longitude = -3.7038f }, // Madrid
             Permissions = new[] { "geolocation" },
-            UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            // Match CI Environment (Linux) to avoid Platform mismatch detection
+            UserAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
         });
     }
 

@@ -25,8 +25,25 @@ public class HomePage : BasePage
              var title = await Page.TitleAsync();
              if (title.Contains("Un momento") || title.Contains("Just a moment"))
              {
-                 Logger.Warning("WAF Detected. Waiting additional time for clearance...");
-                 await Page.WaitForTimeoutAsync(5000); // Give it a moment to clear
+                 Logger.Warning("WAF Detected. Attempting bypass...");
+                 
+                 // Try to find and click the verify checkbox if it exists (Turnstile/Challenge)
+                 try 
+                 {
+                    var frames = Page.Frames;
+                    foreach(var frame in frames)
+                    {
+                        var checkbox = frame.Locator("input[type='checkbox'], .ctp-checkbox-label").First;
+                        if (await checkbox.CountAsync() > 0)
+                        {
+                             Logger.Warning("Found WAF Checkbox. Clicking...");
+                             await checkbox.ClickAsync();
+                        }
+                    }
+                 }
+                 catch { /* Ignore if no checkbox found */ }
+
+                 await Page.WaitForTimeoutAsync(10000); // Extended wait for challenge solution
              }
 
              // Check for specific text to ensure we are on the right page
