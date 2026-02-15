@@ -116,8 +116,12 @@ public class Hooks
 
             if (scenarioContext.TestError != null && _page != null)
             {
-                 var screenshot = await _page.ScreenshotAsync(new PageScreenshotOptions { FullPage = true });
-                 reporting.AddAttachment("Failure Screenshot", "image/png", screenshot);
+                var title = await _page.TitleAsync();
+                Console.WriteLine($"[Hooks] Test Failed on Page: '{title}'");
+                Console.WriteLine($"[Hooks] Current URL: '{_page.Url}'");
+                
+                var screenshot = await _page.ScreenshotAsync(new PageScreenshotOptions { FullPage = true });
+                reporting.AddAttachment("Failure Screenshot", "image/png", screenshot);
             }
 
             reporting.EndTest(status, message);

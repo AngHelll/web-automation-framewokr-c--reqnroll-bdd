@@ -21,7 +21,8 @@ public class HomePage : BasePage
     {
         try
         {
-             await Page.WaitForSelectorAsync("h1", new PageWaitForSelectorOptions { State = WaitForSelectorState.Visible });
+             // Check for specific text to ensure we are on the right page, not a 404
+             await Page.WaitForSelectorAsync("h1:has-text('Angel')", new PageWaitForSelectorOptions { State = WaitForSelectorState.Visible });
              return true;
         }
         catch
