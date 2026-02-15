@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Company.Automation.Web;
 using Microsoft.Playwright;
@@ -18,11 +19,11 @@ public class NavBar
 
     public async Task ClickProjectsAsync()
     {
-        await _page.Locator("text=/Proyectos|Projects/i").ClickAsync();
+        await _page.GetByRole(AriaRole.Link, new() { NameRegex = new Regex("Proyectos|Projects", RegexOptions.IgnoreCase) }).ClickAsync();
     }
 
     public async Task ClickNotesAsync()
     {
-        await _page.Locator("text=/Ideas|Notes/i").ClickAsync();
+        await _page.GetByRole(AriaRole.Link, new() { NameRegex = new Regex("Ideas|Notes", RegexOptions.IgnoreCase) }).ClickAsync();
     }
 }
