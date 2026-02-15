@@ -47,7 +47,7 @@ public class HomePage : BasePage
              }
 
              // Check for specific text to ensure we are on the right page
-             await Page.WaitForSelectorAsync("h1:has-text('Angel')", new PageWaitForSelectorOptions { State = WaitForSelectorState.Visible, Timeout = 30000 });
+             await Page.WaitForSelectorAsync("h1:has-text(/Angel|Ángel/i)", new PageWaitForSelectorOptions { State = WaitForSelectorState.Visible, Timeout = 30000 });
              return true;
         }
         catch
