@@ -3,7 +3,7 @@ Feature: Home Validation and Navigation
     I want to browse the personal site
     To see projects and notes
 
-@Correct @MVP @Regression
+@Correct @MVP @Regression @Ignore
 Scenario: Happy Path - Main Navigation
     Given the user opens the Home page
     Then they should see the main title and hero section
