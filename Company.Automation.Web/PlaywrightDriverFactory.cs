@@ -33,17 +33,22 @@ public class PlaywrightDriverFactory : IDriverFactory
         var headless = _configuration.GetBool("Browser:Headless", true);
         var args = _configuration.Get<string[]>("Browser:Args") ?? new string[] { };
 
+        var argsList = new List<string>(args) { "--lang=es-ES" };
+
         var browser = await browserType.LaunchAsync(new BrowserTypeLaunchOptions
         {
             Headless = headless,
-            Args = args
+            Args = argsList
         });
 
         return await browser.NewContextAsync(new BrowserNewContextOptions
         {
             ViewportSize = new ViewportSize { Width = 1920, Height = 1080 },
             IgnoreHTTPSErrors = true,
-            Locale = "es-ES" // Force Spanish locale to match test selectors
+            Locale = "es-ES",
+            TimezoneId = "Europe/Madrid",
+            Geolocation = new Geolocation { Latitude = 40.4168, Longitude = -3.7038 }, // Madrid
+            Permissions = new[] { "geolocation" }
         });
     }
 
