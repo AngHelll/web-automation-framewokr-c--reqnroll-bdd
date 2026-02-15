@@ -42,7 +42,8 @@ public class PlaywrightDriverFactory : IDriverFactory
         return await browser.NewContextAsync(new BrowserNewContextOptions
         {
             ViewportSize = new ViewportSize { Width = 1920, Height = 1080 },
-            IgnoreHTTPSErrors = true
+            IgnoreHTTPSErrors = true,
+            Locale = "es-ES" // Force Spanish locale to match test selectors
         });
     }
 
